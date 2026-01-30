@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///C:/Users/hp/Downloads/index%20(4).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Journal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8f9fc;
+            --bg-secondary: rgba(255, 255, 255, 0.95);
+            --text-primary: #333;
+            --text-secondary: #666;
+            --border-color: #e0e0e0;
+            --card-shadow: rgba(0, 0, 0, 0.08);
+            --hover-bg: #f8f9fc;
+        }
+
+        body.dark-mode {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: rgba(22, 33, 62, 0.95);
+            --text-primary: #eee;
+            --text-secondary: #aaa;
+            --border-color: #2d3748;
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --hover-bg: #1f2937;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body:not(.dark-mode) {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 50%, #f3e5f5 100%);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        body.dark-mode .dashboard-container {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 25%, #1f1f3a 50%, #2a1b3d 75%, #1e1e38 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            background: #0a0e27;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .login-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .login-right {
+            flex: 1.5;
+            padding: 80px 60px;
+            overflow-y: auto;
+        }
+
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.2), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+            filter: blur(40px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(20px); }
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 50px 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            width: 420px;
+            max-width: 90%;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateZ(10px);
+        }
+
+        .login-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .feature-showcase {
+            margin-bottom: 100px;
+        }
+
+        .feature-card-3d {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .feature-card-3d:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.6));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-box-3d {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transform: translateZ(20px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box-3d:hover {
+            transform: translateZ(30px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .chart-demo {
+            margin-top: 30px;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(102, 126, 234, 0.1), transparent);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-demo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200"><path d="M0,100 Q100,50 200,80 T400,100 T600,60 T800,100" fill="none" stroke="rgba(102,126,234,0.5)" stroke-width="3"/></svg>');
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .input-group input:hover {
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .forgot-password {
+            text-align: center;
+            color: #667eea;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #f093fb;
+            text-decoration: underline;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-container {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8d5f2 0%, #f5e6ff 25%, #ffe8f5 50%, #ffd6e8 75%, #ffe6f0 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            background: var(--bg-secondary);
+            padding: 16px 32px;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: #f0f0ff;
+            color: #667eea;
+        }
+
+        .content {
+            padding: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px var(--card-shadow);
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 48px var(--card-shadow);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .form-row > * {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        select, input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        th {
+            background: var(--hover-bg);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: var(--hover-bg);
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #ff3838;
+            transform: translateY(-1px);
+        }
+
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .positive {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .day-performance {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .day-card {
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .day-name {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .day-stats {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+
+        /* Comparison Styles */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--hover-bg);
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .comparison-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--hover-bg);
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <!-- Animated Background Bubbles -->
+        <div class="bubble" style="width: 400px; height: 400px; top: 10%; left: 5%;"></div>
+        <div class="bubble" style="width: 300px; height: 300px; top: 50%; right: 10%; animation-delay: 2s;"></div>
+        <div class="bubble" style="width: 250px; height: 250px; bottom: 10%; left: 20%; animation-delay: 4s;"></div>
+        
+        <!-- Left Side - Login Form -->
+        <div class="login-left">
+            <div class="login-card">
+                <h1 class="login-title">Trade Journal</h1>
+                <p class="login-subtitle">Professional Trading Analytics Platform</p>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <button class="btn btn-primary" onclick="login()">Login</button>
+                <button class="btn btn-secondary" onclick="register()">Register</button>
+                <div class="forgot-password" onclick="forgotPassword()">Forgot Password?</div>
+            </div>
+        </div>
+
+        <!-- Right Side - Feature Showcase -->
+        <div class="login-right">
+            <h2 style="color: white; font-size: 3rem; font-weight: 800; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #667eea, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                All-in-One Trading Platform
+            </h2>
+            <p style="color: rgba(255,255,255,0.7); font-size: 1.2rem; margin-bottom: 60px; line-height: 1.8;">
+                Track, analyze, and optimize your trading performance with powerful analytics and insights.
+            </p>
+
+            <!-- Feature 1: Dashboard -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Performance Dashboard</h3>
+                    <p class="feature-description">
+                        Comprehensive overview of your trading performance with real-time statistics and insights.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-box-3d">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Key Metrics</div>
+                        </div>
+                        <div class="stat-box-3d">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Day Analysis</div>
+                        </div>
+                        <div class="stat-box-3d">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Strategies</div>
+                        </div>
+                        <div class="stat-box-3d">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Customizable</div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Total Capital &amp; ROI tracking</li>
+                        <li>Win/Loss ratio analysis</li>
+                        <li>Day-wise performance breakdown</li>
+                        <li>Real-time drawdown monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2: Analytics -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Advanced Analytics</h3>
+                    <p class="feature-description">
+                        Interactive charts and visualizations to understand your trading patterns and performance trends.
+                    </p>
+                    <div class="chart-demo"></div>
+                    <ul class="feature-list">
+                        <li>PnL &amp; ROI trend charts</li>
+                        <li>Drawdown analysis</li>
+                        <li>Monthly performance tracking</li>
+                        <li>Interactive hover tooltips</li>
+                        <li>Date range filtering</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 3: Comparison -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">⚖️</div>
+                    <h3 class="feature-title">Multi-Strategy Comparison</h3>
+                    <p class="feature-description">
+                        Compare performance across multiple clients or trading strategies side-by-side.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Select multiple strategies to compare</li>
+                        <li>Color-coded performance lines</li>
+                        <li>ROI comparison over time</li>
+                        <li>Identify best-performing strategies</li>
+                        <li>Export comparison reports</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 4: Client Management -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Client &amp; Strategy Management</h3>
+                    <p class="feature-description">
+                        Manage multiple clients or trading strategies with dedicated capital tracking.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Add unlimited clients/strategies</li>
+                        <li>Track individual capital allocation</li>
+                        <li>Edit capital on-the-fly</li>
+                        <li>Sorted by capital invested</li>
+                        <li>Total portfolio overview</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 5: Trade Journal -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Daily Trade Journal</h3>
+                    <p class="feature-description">
+                        Log your daily trades and track performance with detailed entry management.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Quick trade entry</li>
+                        <li>Date-wise organization</li>
+                        <li>Client/Strategy tagging</li>
+                        <li>PnL tracking per trade</li>
+                        <li>Complete trade history</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 6: MTM Graphs -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📸</div>
+                    <h3 class="feature-title">MTM Graph Archive</h3>
+                    <p class="feature-description">
+                        Upload and store your daily Mark-to-Market graph screenshots for future reference.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Upload daily MTM screenshots</li>
+                        <li>Browse past graphs by date</li>
+                        <li>Filter by month or specific date</li>
+                        <li>Fullscreen viewing</li>
+                        <li>Permanent storage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 7: Day-wise PnL -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Day-wise PnL Report</h3>
+                    <p class="feature-description">
+                        Detailed day-by-day breakdown of your trading performance with cumulative tracking.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Complete daily breakdown</li>
+                        <li>Cumulative PnL tracking</li>
+                        <li>ROI percentage calculations</li>
+                        <li>Color-coded profits/losses</li>
+                        <li>Exportable reports</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 8: PDF Reports -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">📄</div>
+                    <h3 class="feature-title">Professional PDF Reports</h3>
+                    <p class="feature-description">
+                        Generate comprehensive PDF reports with all your trading analytics and charts.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Complete performance overview</li>
+                        <li>Analytics charts included</li>
+                        <li>Day-wise PnL tables</li>
+                        <li>Custom date ranges</li>
+                        <li>Client-specific or combined reports</li>
+                        <li>Professional formatting</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 9: Dark Mode -->
+            <div class="feature-showcase">
+                <div class="feature-card-3d">
+                    <div class="feature-icon">🌙</div>
+                    <h3 class="feature-title">Dark Mode &amp; Customization</h3>
+                    <p class="feature-description">
+                        Eye-friendly dark mode with beautiful gradients and smooth transitions.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Toggle dark/light themes</li>
+                        <li>Persistent theme preference</li>
+                        <li>Optimized for night trading</li>
+                        <li>Beautiful gradient backgrounds</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="text-align: center; margin: 80px 0 40px 0;">
+                <h2 style="color: white; font-size: 2.5rem; font-weight: 800; margin-bottom: 20px;">
+                    Ready to Transform Your Trading?
+                </h2>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-bottom: 30px;">
+                    Start tracking your performance like a professional trader today.
+                </p>
+                <button class="btn btn-primary" onclick="document.getElementById(&#39;loginEmail&#39;).focus()" style="font-size: 1.2rem; padding: 18px 48px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);">
+                    Get Started Now →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container" id="dashboardPage">
+        <nav class="navbar">
+            <div class="nav-links">
+                <div class="nav-link active" onclick="showSection(&#39;dashboard&#39;)">Dashboard</div>
+                <div class="nav-link" onclick="showSection(&#39;analytics&#39;)">Analytics</div>
+                <div class="nav-link" onclick="showSection(&#39;comparison&#39;)">Compare</div>
+                <div class="nav-link" onclick="showSection(&#39;clients&#39;)">Clients/Strategies</div>
+                <div class="nav-link" onclick="showSection(&#39;journal&#39;)">Journal</div>
+                <div class="nav-link" onclick="showSection(&#39;mtmgraph&#39;)">Day's MTM Graph</div>
+                <div class="nav-link" onclick="showSection(&#39;daywisepnl&#39;)">Day-wise PnL</div>
+                <div class="nav-link" onclick="showSection(&#39;download&#39;)">Download Report</div>
+            </div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <div class="nav-link" onclick="showProfile()" style="display: flex; align-items: center; gap: 8px;">
+                    <span style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;" id="userAvatar">U</span>
+                    <span id="userName">User</span>
+                </div>
+                <button class="btn" onclick="toggleDarkMode()" style="padding: 8px 16px; width: auto; margin: 0;" id="darkModeBtn">☀️ Light</button>
+                <div class="nav-link" onclick="logout()">Logout</div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <!-- Dashboard Section -->
+            <div class="page-section active" id="dashboard">
+                <div class="card">
+                    <h2 class="card-title">Performance Overview</h2>
+                    <div class="form-row">
+                        <select id="dashboardClient" onchange="updateDashboard()">
+                            <option value="all">All Clients/Strategies</option>
+                        </select>
+                        <select id="dashboardMonth" onchange="updateDashboard()">
+                            <option value="all">All Time</option>
+                        </select>
+                        <div style="display: flex; gap: 8px; align-items: center; flex: 1;">
+                            <input type="date" id="dashboardStartDate" onchange="updateDashboard()" placeholder="Start Date">
+                            <span style="color: var(--text-secondary);">to</span>
+                            <input type="date" id="dashboardEndDate" onchange="updateDashboard()" placeholder="End Date">
+                        </div>
+                    </div>
+                    <div class="grid" id="statsGrid"></div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Day-wise Performance</h2>
+                    <div class="day-performance" id="dayPerformance"></div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="page-section" id="analytics">
+                <div class="chart-tooltip" id="chartTooltip"></div>
+                <div class="card">
+                    <h2 class="card-title">Analytics</h2>
+                    <div class="form-row">
+                        <select id="analyticsClient" onchange="updateAnalytics()">
+                            <option value="all">All Clients/Strategies</option>
+                        </select>
+                        <select id="analyticsMonth" onchange="updateAnalytics()">
+                            <option value="all">All Time</option>
+                        </select>
+                        <div style="display: flex; gap: 8px; align-items: center; flex: 1;">
+                            <input type="date" id="analyticsStartDate" onchange="updateAnalytics()" placeholder="Start Date">
+                            <span style="color: var(--text-secondary);">to</span>
+                            <input type="date" id="analyticsEndDate" onchange="updateAnalytics()" placeholder="End Date">
+                        </div>
+                    </div>
+                    
+                    <div class="chart-controls">
+                        <div class="radio-group">
+                            <label>Y-Axis:</label>
+                            <input type="radio" name="yAxis" value="pnl" checked="" onchange="updateAnalytics()"> PnL
+                            <input type="radio" name="yAxis" value="roi" onchange="updateAnalytics()"> ROI %
+                        </div>
+                        <div class="radio-group">
+                            <label>ROI Period:</label>
+                            <input type="radio" name="roiPeriod" value="total" checked="" onchange="updateAnalytics()"> Total
+                            <input type="radio" name="roiPeriod" value="monthly" onchange="updateAnalytics()"> Monthly
+                        </div>
+                    </div>
+                    
+                    <canvas id="pnlChart" width="800" height="400"></canvas>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Drawdown Analysis</h2>
+                    <canvas id="drawdownChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="page-section" id="comparison">
+                <div class="chart-tooltip" id="comparisonTooltip"></div>
+                <div class="card">
+                    <h2 class="card-title">Compare Clients/Strategies Performance</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Select multiple clients/strategies to compare their ROI performance over time.</p>
+                    
+                    <div class="form-row">
+                        <select id="comparisonMonth" onchange="updateComparison()">
+                            <option value="all">All Time</option>
+                        </select>
+                        <div style="display: flex; gap: 8px; align-items: center; flex: 1;">
+                            <input type="date" id="comparisonStartDate" onchange="updateComparison()" placeholder="Start Date">
+                            <span style="color: var(--text-secondary);">to</span>
+                            <input type="date" id="comparisonEndDate" onchange="updateComparison()" placeholder="End Date">
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 12px; color: var(--text-primary);">Select Clients/Strategies:</h3>
+                    <div class="checkbox-group" id="comparisonCheckboxes"></div>
+
+                    <canvas id="comparisonChart" width="800" height="400"></canvas>
+
+                    <div class="comparison-legend" id="comparisonLegend"></div>
+                </div>
+            </div>
+
+            <!-- Clients Section -->
+            <div class="page-section" id="clients">
+                <div class="card">
+                    <h2 class="card-title">Manage Clients/Strategies</h2>
+                    <div class="form-row">
+                        <input type="text" id="clientName" placeholder="Client/Strategy Name">
+                        <input type="number" id="clientCapital" placeholder="Capital Invested">
+                        <button class="btn btn-primary" onclick="addClient()">Add Client/Strategy</button>
+                    </div>
+                    <table id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th>Client/Strategy Name</th>
+                                <th>Capital Invested</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;">
+                        Total Capital: ₹<span id="totalCapital">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal Section -->
+            <div class="page-section" id="journal">
+                <div class="card">
+                    <h2 class="card-title">Trade Entry</h2>
+                    <div class="form-row">
+                        <select id="tradeClient">
+                            <option value="">Select Client/Strategy</option>
+                        </select>
+                        <input type="date" id="tradeDate">
+                        <input type="number" id="tradePnL" placeholder="Daily PnL (₹)" step="0.01">
+                        <button class="btn btn-primary" onclick="addTrade()">Add Trade</button>
+                    </div>
+                    <table id="tradesTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Client/Strategy</th>
+                                <th>PnL</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MTM Graph Section -->
+            <div class="page-section" id="mtmgraph">
+                <div class="card">
+                    <h2 class="card-title">Upload Day's MTM Graph</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Upload your daily MTM graph screenshots to track your intraday performance.</p>
+                    
+                    <div class="form-row">
+                        <input type="date" id="mtmDate">
+                        <input type="file" id="mtmFileInput" accept="image/*" style="padding: 8px;">
+                        <button class="btn btn-primary" onclick="uploadMTMGraph()" style="width: auto; padding: 12px 24px;">
+                            📤 Upload Graph
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">View Past MTM Graphs</h2>
+                    <div class="form-row">
+                        <select id="mtmMonthFilter" onchange="filterMTMGraphs()">
+                            <option value="all">All Months</option>
+                        </select>
+                        <input type="date" id="mtmDateFilter" onchange="filterMTMGraphs()" placeholder="Search by Date">
+                    </div>
+
+                    <div id="mtmGraphsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <!-- MTM graphs will be displayed here -->
+                    </div>
+
+                    <div id="noMTMGraphs" style="text-align: center; padding: 40px; color: var(--text-secondary); display: none;">
+                        <div style="font-size: 3rem; margin-bottom: 16px;">📊</div>
+                        <p>No MTM graphs uploaded yet. Upload your first graph above!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day-wise PnL Section -->
+            <div class="page-section" id="daywisepnl">
+                <div class="card">
+                    <h2 class="card-title">Day-wise PnL Report</h2>
+                    <div class="form-row">
+                        <select id="daywisepnlClient" onchange="updateDaywisePnL()">
+                            <option value="all">All Clients/Strategies</option>
+                        </select>
+                        <select id="daywisepnlMonth" onchange="updateDaywisePnL()">
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="daywisepnlTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Day PnL</th>
+                                    <th>Day ROI %</th>
+                                    <th>Cumulative PnL</th>
+                                    <th>Cumulative ROI %</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 24px; padding: 16px; background: var(--bg-secondary); border-radius: 12px; display: flex; gap: 32px; justify-content: center; font-size: 1.2rem; font-weight: 600;">
+                        <div>
+                            <span style="color: var(--text-secondary);">Total PnL: </span>
+                            <span id="totalDayPnL" style="font-size: 1.5rem;">₹0</span>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-secondary);">Total ROI: </span>
+                            <span id="totalDayROI" style="font-size: 1.5rem;">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Report Section -->
+            <div class="page-section" id="download">
+                <div class="card">
+                    <h2 class="card-title">Download Client/Strategy Report</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Generate a comprehensive PDF report with dashboard stats, analytics charts, and day-wise PnL breakdown.</p>
+                    <div class="form-row">
+                        <select id="downloadClient">
+                            <option value="all">All Clients/Strategies</option>
+                        </select>
+                        <select id="downloadMonth">
+                            <option value="all">All Time</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="generatePDF()" style="width: auto; padding: 12px 32px;">
+                            📥 Download PDF Report
+                        </button>
+                    </div>
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(102, 126, 234, 0.1); border-radius: 12px; border-left: 4px solid #667eea;">
+                        <p style="color: var(--text-primary); font-size: 0.95rem;">
+                            <strong>Report includes:</strong><br>
+                            • Performance Overview Dashboard<br>
+                            • Day-wise Performance Analysis<br>
+                            • Detailed Day-by-Day PnL Table<br>
+                            • Analytics Charts (PnL &amp; Drawdown)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div id="profileModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+            <div class="card" style="width: 400px; max-width: 90%; position: relative;">
+                <button onclick="closeProfile()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary);">×</button>
+                <h2 class="card-title">Profile</h2>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 600; margin-bottom: 12px;" id="profileAvatar">U</div>
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Name</label>
+                    <input type="text" id="profileName" placeholder="Your Name">
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Email</label>
+                    <input type="email" id="profileEmail" disabled="" style="background: var(--hover-bg); cursor: not-allowed;">
+                </div>
+                <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let clients = JSON.parse(localStorage.getItem('clients') || '[]');
+        let trades = JSON.parse(localStorage.getItem('trades') || '[]');
+        let mtmGraphs = JSON.parse(localStorage.getItem('mtmGraphs') || '[]');
+        let currentUser = localStorage.getItem('currentUser');
+
+        // Color palette for comparison
+        const comparisonColors = [
+            '#667eea', '#f093fb', '#4facfe', '#43e97b', '#fa709a',
+            '#30cfd0', '#a8edea', '#fed6e3', '#c471ed', '#12c2e9',
+            '#f857a6', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24'
+        ];
+
+        // Authentication
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (email && password) {
+                localStorage.setItem('currentUser', email);
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').style.display = 'block';
+                loadData();
+                updateUserDisplay();
+            } else {
+                alert('Please enter email and password');
+            }
+        }
+
+        function register() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (email && password) {
+                const name = prompt('Please enter your name:');
+                if (name) {
+                    localStorage.setItem('currentUser', email);
+                    localStorage.setItem('userName', name);
+                    alert('Registration successful! You can now login.');
+                } else {
+                    alert('Name is required for registration');
+                }
+            } else {
+                alert('Please enter email and password');
+            }
+        }
+
+        function forgotPassword() {
+            alert('Password reset link would be sent to your email');
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('dashboardPage').style.display = 'none';
+        }
+
+        // Navigation
+        function showSection(section) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            event.target.classList.add('active');
+
+            if (section === 'dashboard') updateDashboard();
+            if (section === 'analytics') updateAnalytics();
+            if (section === 'daywisepnl') updateDaywisePnL();
+            if (section === 'comparison') updateComparison();
+            if (section === 'mtmgraph') loadMTMGraphs();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.getElementById('darkModeBtn').textContent = isDark ? '☀️ Light' : '🌙 Dark';
+        }
+
+        function showProfile() {
+            const email = localStorage.getItem('currentUser');
+            const name = localStorage.getItem('userName') || 'User';
+            
+            document.getElementById('profileEmail').value = email;
+            document.getElementById('profileName').value = name;
+            document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase();
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('profileName').value;
+            if (name) {
+                localStorage.setItem('userName', name);
+                updateUserDisplay();
+                closeProfile();
+                alert('Profile updated successfully!');
+            } else {
+                alert('Please enter your name');
+            }
+        }
+
+        function updateUserDisplay() {
+            const name = localStorage.getItem('userName') || 'User';
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+        }
+
+        // Client Management
+        function addClient() {
+            const name = document.getElementById('clientName').value;
+            const capital = parseFloat(document.getElementById('clientCapital').value);
+            
+            if (name && capital) {
+                clients.push({ id: Date.now(), name, capital });
+                localStorage.setItem('clients', JSON.stringify(clients));
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientCapital').value = '';
+                loadData();
+            }
+        }
+
+        function deleteClient(id) {
+            if (confirm('Are you sure you want to delete this client?')) {
+                clients = clients.filter(c => c.id !== id);
+                trades = trades.filter(t => t.clientId !== id);
+                localStorage.setItem('clients', JSON.stringify(clients));
+                localStorage.setItem('trades', JSON.stringify(trades));
+                loadData();
+            }
+        }
+
+        function editCapital(id) {
+            const capitalSpan = document.getElementById(`capital-${id}`);
+            const capitalInput = document.getElementById(`edit-capital-${id}`);
+            
+            if (capitalInput.style.display === 'none') {
+                capitalSpan.style.display = 'none';
+                capitalInput.style.display = 'inline-block';
+                capitalInput.focus();
+                
+                event.target.textContent = 'Save';
+                event.target.classList.remove('btn-primary');
+                event.target.style.background = '#2ecc71';
+            } else {
+                const newCapital = parseFloat(capitalInput.value);
+                if (newCapital && newCapital > 0) {
+                    const client = clients.find(c => c.id === id);
+                    if (client) {
+                        client.capital = newCapital;
+                        localStorage.setItem('clients', JSON.stringify(clients));
+                        loadData();
+                        updateDashboard();
+                        updateAnalytics();
+                    }
+                } else {
+                    alert('Please enter a valid capital amount');
+                }
+            }
+        }
+
+        // Trade Management
+        function addTrade() {
+            const clientId = parseInt(document.getElementById('tradeClient').value);
+            const date = document.getElementById('tradeDate').value;
+            const pnl = parseFloat(document.getElementById('tradePnL').value);
+            
+            if (clientId && date && pnl !== '') {
+                trades.push({ id: Date.now(), clientId, date, pnl });
+                localStorage.setItem('trades', JSON.stringify(trades));
+                document.getElementById('tradeDate').value = '';
+                document.getElementById('tradePnL').value = '';
+                loadData();
+            }
+        }
+
+        function deleteTrade(id) {
+            trades = trades.filter(t => t.id !== id);
+            localStorage.setItem('trades', JSON.stringify(trades));
+            loadData();
+        }
+
+        // MTM Graph Management
+        function uploadMTMGraph() {
+            const date = document.getElementById('mtmDate').value;
+            const fileInput = document.getElementById('mtmFileInput');
+            const file = fileInput.files[0];
+            
+            if (!date) {
+                alert('Please select a date');
+                return;
+            }
+            
+            if (!file) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            // Check if graph already exists for this date
+            const existingIndex = mtmGraphs.findIndex(g => g.date === date);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                if (existingIndex !== -1) {
+                    // Update existing graph
+                    if (confirm('A graph already exists for this date. Do you want to replace it?')) {
+                        mtmGraphs[existingIndex] = {
+                            id: mtmGraphs[existingIndex].id,
+                            date: date,
+                            image: imageData,
+                            uploadedAt: new Date().toISOString()
+                        };
+                    } else {
+                        return;
+                    }
+                } else {
+                    // Add new graph
+                    mtmGraphs.push({
+                        id: Date.now(),
+                        date: date,
+                        image: imageData,
+                        uploadedAt: new Date().toISOString()
+                    });
+                }
+                
+                localStorage.setItem('mtmGraphs', JSON.stringify(mtmGraphs));
+                
+                // Clear inputs
+                document.getElementById('mtmDate').value = '';
+                document.getElementById('mtmFileInput').value = '';
+                
+                // Reload MTM graphs
+                loadMTMGraphs();
+                
+                alert('MTM graph uploaded successfully!');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function deleteMTMGraph(id) {
+            if (confirm('Are you sure you want to delete this MTM graph?')) {
+                mtmGraphs = mtmGraphs.filter(g => g.id !== id);
+                localStorage.setItem('mtmGraphs', JSON.stringify(mtmGraphs));
+                loadMTMGraphs();
+            }
+        }
+
+        function loadMTMGraphs() {
+            // Populate month filter
+            const months = [...new Set(mtmGraphs.map(g => g.date.substring(0, 7)))].sort().reverse();
+            const monthOptions = months.map(m => `<option value="${m}">${new Date(m + '-01').toLocaleDateString('en-US', {month: 'long', year: 'numeric'})}</option>`).join('');
+            document.getElementById('mtmMonthFilter').innerHTML = '<option value="all">All Months</option>' + monthOptions;
+            
+            filterMTMGraphs();
+        }
+
+        function filterMTMGraphs() {
+            const monthFilter = document.getElementById('mtmMonthFilter').value;
+            const dateFilter = document.getElementById('mtmDateFilter').value;
+            
+            let filteredGraphs = mtmGraphs;
+            
+            if (monthFilter !== 'all') {
+                filteredGraphs = filteredGraphs.filter(g => g.date.startsWith(monthFilter));
+            }
+            
+            if (dateFilter) {
+                filteredGraphs = filteredGraphs.filter(g => g.date === dateFilter);
+            }
+            
+            const container = document.getElementById('mtmGraphsContainer');
+            const noGraphsMsg = document.getElementById('noMTMGraphs');
+            
+            if (filteredGraphs.length === 0) {
+                container.innerHTML = '';
+                noGraphsMsg.style.display = 'block';
+                return;
+            }
+            
+            noGraphsMsg.style.display = 'none';
+            
+            // Sort by date (newest first)
+            filteredGraphs.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            container.innerHTML = filteredGraphs.map(graph => {
+                const displayDate = new Date(graph.date).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                return `
+                    <div class="card" style="padding: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary);">${displayDate}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                                    Uploaded: ${new Date(graph.uploadedAt).toLocaleDateString('en-US')}
+                                </div>
+                            </div>
+                            <button class="delete-btn" onclick="deleteMTMGraph(${graph.id})">Delete</button>
+                        </div>
+                        <div style="cursor: pointer;" onclick="viewMTMGraphFullscreen('${graph.image}', '${displayDate}')">
+                            <img src="${graph.image}" alt="MTM Graph ${graph.date}" 
+                                style="width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.02)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewMTMGraphFullscreen(imageData, date) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="color: white; font-size: 1.5rem; margin-bottom: 16px; font-weight: 600;">${date}</div>
+                <img src="${imageData}" style="max-width: 95%; max-height: 85%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                <button style="margin-top: 20px; padding: 12px 32px; background: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;" onclick="this.parentElement.remove()">Close</button>
+            `;
+            
+            modal.onclick = function(e) {
+                if (e.target === modal || e.target.tagName === 'BUTTON') {
+                    modal.remove();
+                }
+            };
+            
+            document.body.appendChild(modal);
+        }
+
+        // Data Loading
+        function loadData() {
+            // Sort clients by capital (descending)
+            clients.sort((a, b) => b.capital - a.capital);
+            
+            // Load Clients Table
+            const clientsTableBody = document.querySelector('#clientsTable tbody');
+            clientsTableBody.innerHTML = '';
+            let totalCapital = 0;
+            
+            clients.forEach(client => {
+                totalCapital += client.capital;
+                clientsTableBody.innerHTML += `
+                    <tr>
+                        <td>${client.name}</td>
+                        <td>
+                            <span id="capital-${client.id}">₹${client.capital.toLocaleString()}</span>
+                            <input type="number" id="edit-capital-${client.id}" style="display:none;" value="${client.capital}">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" style="padding: 6px 12px; width: auto; margin: 0 4px;" onclick="editCapital(${client.id})">Edit</button>
+                            <button class="delete-btn" onclick="deleteClient(${client.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            document.getElementById('totalCapital').textContent = totalCapital.toLocaleString();
+            
+            // Load Client Dropdowns
+            const clientOptions = clients.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('tradeClient').innerHTML = '<option value="">Select Client/Strategy</option>' + clientOptions;
+            document.getElementById('dashboardClient').innerHTML = '<option value="all">All Clients/Strategies</option>' + clientOptions;
+            document.getElementById('analyticsClient').innerHTML = '<option value="all">All Clients/Strategies</option>' + clientOptions;
+            document.getElementById('daywisepnlClient').innerHTML = '<option value="all">All Clients/Strategies</option>' + clientOptions;
+            document.getElementById('downloadClient').innerHTML = '<option value="all">All Clients/Strategies</option>' + clientOptions;
+            
+            // Populate month dropdowns
+            const months = [...new Set(trades.map(t => t.date.substring(0, 7)))].sort().reverse();
+            const monthOptions = months.map(m => `<option value="${m}">${new Date(m + '-01').toLocaleDateString('en-US', {month: 'long', year: 'numeric'})}</option>`).join('');
+            document.getElementById('dashboardMonth').innerHTML = '<option value="all">All Time</option>' + monthOptions;
+            document.getElementById('analyticsMonth').innerHTML = '<option value="all">All Time</option>' + monthOptions;
+            document.getElementById('daywisepnlMonth').innerHTML = '<option value="all">All Time</option>' + monthOptions;
+            document.getElementById('downloadMonth').innerHTML = '<option value="all">All Time</option>' + monthOptions;
+            document.getElementById('comparisonMonth').innerHTML = '<option value="all">All Time</option>' + monthOptions;
+            
+            // Load Comparison Checkboxes
+            loadComparisonCheckboxes();
+            
+            // Load Trades Table
+            const tradesTableBody = document.querySelector('#tradesTable tbody');
+            tradesTableBody.innerHTML = '';
+            
+            trades.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(trade => {
+                const client = clients.find(c => c.id === trade.clientId);
+                const pnlClass = trade.pnl >= 0 ? 'positive' : 'negative';
+                tradesTableBody.innerHTML += `
+                    <tr>
+                        <td>${trade.date}</td>
+                        <td>${client?.name || 'Unknown'}</td>
+                        <td class="${pnlClass}">₹${trade.pnl.toLocaleString()}</td>
+                        <td><button class="delete-btn" onclick="deleteTrade(${trade.id})">Delete</button></td>
+                    </tr>
+                `;
+            });
+            
+            // Load MTM Graphs
+            loadMTMGraphs();
+        }
+
+        // Dashboard Analytics
+        function updateDashboard() {
+            const selectedClient = document.getElementById('dashboardClient').value;
+            const selectedMonth = document.getElementById('dashboardMonth').value;
+            const startDate = document.getElementById('dashboardStartDate').value;
+            const endDate = document.getElementById('dashboardEndDate').value;
+            
+            let filteredTrades = selectedClient === 'all' 
+                ? trades 
+                : trades.filter(t => t.clientId === parseInt(selectedClient));
+            
+            if (selectedMonth !== 'all') {
+                filteredTrades = filteredTrades.filter(t => t.date.startsWith(selectedMonth));
+            }
+            
+            if (startDate && endDate) {
+                filteredTrades = filteredTrades.filter(t => t.date >= startDate && t.date <= endDate);
+            } else if (startDate) {
+                filteredTrades = filteredTrades.filter(t => t.date >= startDate);
+            } else if (endDate) {
+                filteredTrades = filteredTrades.filter(t => t.date <= endDate);
+            }
+            
+            const filteredClients = selectedClient === 'all'
+                ? clients
+                : clients.filter(c => c.id === parseInt(selectedClient));
+            
+            const totalCapital = filteredClients.reduce((sum, c) => sum + c.capital, 0);
+            const totalDays = filteredTrades.length;
+            const winningDays = filteredTrades.filter(t => t.pnl > 0).length;
+            const losingDays = filteredTrades.filter(t => t.pnl < 0).length;
+            const totalPnL = filteredTrades.reduce((sum, t) => sum + t.pnl, 0);
+            const roi = totalCapital > 0 ? (totalPnL / totalCapital * 100).toFixed(2) : 0;
+            const avgProfitPerTrade = totalDays > 0 ? (totalPnL / totalDays).toFixed(2) : 0;
+            const winPercentage = totalDays > 0 ? ((winningDays / totalDays) * 100).toFixed(2) : 0;
+            
+            let peak = 0;
+            let maxDrawdown = 0;
+            let currentDrawdown = 0;
+            let cumulative = 0;
+            
+            filteredTrades.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(trade => {
+                cumulative += trade.pnl;
+                if (cumulative > peak) peak = cumulative;
+                const drawdown = peak - cumulative;
+                if (drawdown > maxDrawdown) maxDrawdown = drawdown;
+                currentDrawdown = drawdown;
+            });
+            
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="stat-label">Total Capital</div>
+                    <div class="stat-value">₹${totalCapital.toLocaleString()}</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <div class="stat-label">Days Traded</div>
+                    <div class="stat-value">${totalDays}</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);">
+                    <div class="stat-label">Winning Days</div>
+                    <div class="stat-value">${winningDays}</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                    <div class="stat-label">Losing Days</div>
+                    <div class="stat-value">${losingDays}</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                    <div class="stat-label">Win %</div>
+                    <div class="stat-value">${winPercentage}%</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, ${totalPnL >= 0 ? '#2ecc71 0%, #27ae60' : '#e74c3c 0%, #c0392b'} 100%);">
+                    <div class="stat-label">Total PnL</div>
+                    <div class="stat-value">₹${totalPnL.toLocaleString()}</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+                    <div class="stat-label">Avg Profit/Trade</div>
+                    <div class="stat-value">₹${avgProfitPerTrade} (${totalCapital > 0 ? ((avgProfitPerTrade / totalCapital) * 100).toFixed(2) : 0}%)</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, ${roi >= 0 ? '#2ecc71 0%, #27ae60' : '#e74c3c 0%, #c0392b'} 100%);">
+                    <div class="stat-label">ROI</div>
+                    <div class="stat-value">${roi}%</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                    <div class="stat-label">Max Drawdown</div>
+                    <div class="stat-value">₹${maxDrawdown.toLocaleString()} (${totalCapital > 0 ? ((maxDrawdown / totalCapital) * 100).toFixed(2) : 0}%)</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);">
+                    <div class="stat-label">Current Drawdown</div>
+                    <div class="stat-value">₹${currentDrawdown.toLocaleString()} (${totalCapital > 0 ? ((currentDrawdown / totalCapital) * 100).toFixed(2) : 0}%)</div>
+                </div>
+            `;
+            
+            const dayStats = {};
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const dayColors = [
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
+            ];
+            
+            filteredTrades.forEach(trade => {
+                const date = new Date(trade.date);
+                const dayName = days[date.getDay() - 1];
+                if (dayName) {
+                    if (!dayStats[dayName]) dayStats[dayName] = { pnl: 0, count: 0 };
+                    dayStats[dayName].pnl += trade.pnl;
+                    dayStats[dayName].count++;
+                }
+            });
+            
+            const dayPerformance = document.getElementById('dayPerformance');
+            dayPerformance.innerHTML = days.map((day, index) => {
+                const stats = dayStats[day] || { pnl: 0, count: 0 };
+                const avgPnl = stats.count > 0 ? (stats.pnl / stats.count).toFixed(2) : 0;
+                const avgPnlPercent = totalCapital > 0 ? ((avgPnl / totalCapital) * 100).toFixed(2) : 0;
+                return `
+                    <div class="day-card" style="background: ${dayColors[index]}; transition: all 0.3s ease;">
+                        <div class="day-name">${day}</div>
+                        <div class="day-stats">₹${avgPnl} (${avgPnlPercent}%)</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">${stats.count} trades</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Day-wise PnL Report
+        function updateDaywisePnL() {
+            const selectedClient = document.getElementById('daywisepnlClient').value;
+            const selectedMonth = document.getElementById('daywisepnlMonth').value;
+            
+            let filteredTrades = selectedClient === 'all' 
+                ? trades 
+                : trades.filter(t => t.clientId === parseInt(selectedClient));
+            
+            if (selectedMonth !== 'all') {
+                filteredTrades = filteredTrades.filter(t => t.date.startsWith(selectedMonth));
+            }
+            
+            const filteredClients = selectedClient === 'all'
+                ? clients
+                : clients.filter(c => c.id === parseInt(selectedClient));
+            
+            const totalCapital = filteredClients.reduce((sum, c) => sum + c.capital, 0);
+            
+            const sortedTrades = filteredTrades.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            let cumulativePnL = 0;
+            const tableBody = document.querySelector('#daywisepnlTable tbody');
+            tableBody.innerHTML = '';
+            
+            sortedTrades.forEach(trade => {
+                cumulativePnL += trade.pnl;
+                const dayROI = totalCapital > 0 ? ((trade.pnl / totalCapital) * 100).toFixed(2) : 0;
+                const cumulativeROI = totalCapital > 0 ? ((cumulativePnL / totalCapital) * 100).toFixed(2) : 0;
+                
+                const pnlClass = trade.pnl >= 0 ? 'positive' : 'negative';
+                const cumulativeClass = cumulativePnL >= 0 ? 'positive' : 'negative';
+                
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${new Date(trade.date).toLocaleDateString('en-US', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'})}</td>
+                        <td class="${pnlClass}">₹${trade.pnl.toLocaleString()}</td>
+                        <td class="${pnlClass}">${dayROI}%</td>
+                        <td class="${cumulativeClass}">₹${cumulativePnL.toLocaleString()}</td>
+                        <td class="${cumulativeClass}">${cumulativeROI}%</td>
+                    </tr>
+                `;
+            });
+            
+            const totalPnL = sortedTrades.reduce((sum, t) => sum + t.pnl, 0);
+            const totalROI = totalCapital > 0 ? ((totalPnL / totalCapital) * 100).toFixed(2) : 0;
+            
+            const totalPnLClass = totalPnL >= 0 ? 'positive' : 'negative';
+            document.getElementById('totalDayPnL').textContent = `₹${totalPnL.toLocaleString()}`;
+            document.getElementById('totalDayPnL').className = totalPnLClass;
+            document.getElementById('totalDayROI').textContent = `${totalROI}%`;
+            document.getElementById('totalDayROI').className = totalPnLClass;
+        }
+
+        // Analytics Charts
+        function updateAnalytics() {
+            const selectedClient = document.getElementById('analyticsClient').value;
+            const selectedMonth = document.getElementById('analyticsMonth').value;
+            const startDate = document.getElementById('analyticsStartDate').value;
+            const endDate = document.getElementById('analyticsEndDate').value;
+            const yAxis = document.querySelector('input[name="yAxis"]:checked').value;
+            const roiPeriod = document.querySelector('input[name="roiPeriod"]:checked').value;
+            
+            let filteredTrades = selectedClient === 'all' 
+                ? trades 
+                : trades.filter(t => t.clientId === parseInt(selectedClient));
+            
+            if (selectedMonth !== 'all') {
+                filteredTrades = filteredTrades.filter(t => t.date.startsWith(selectedMonth));
+            }
+            
+            if (startDate && endDate) {
+                filteredTrades = filteredTrades.filter(t => t.date >= startDate && t.date <= endDate);
+            } else if (startDate) {
+                filteredTrades = filteredTrades.filter(t => t.date >= startDate);
+            } else if (endDate) {
+                filteredTrades = filteredTrades.filter(t => t.date <= endDate);
+            }
+            
+            const filteredClients = selectedClient === 'all'
+                ? clients
+                : clients.filter(c => c.id === parseInt(selectedClient));
+            
+            const totalCapital = filteredClients.reduce((sum, c) => sum + c.capital, 0);
+            
+            const sortedTrades = filteredTrades.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            const labels = [];
+            const values = [];
+            const drawdowns = [];
+            let cumulative = 0;
+            let peak = 0;
+            let monthlyStart = 0;
+            let currentMonth = '';
+            
+            sortedTrades.forEach(trade => {
+                cumulative += trade.pnl;
+                labels.push(trade.date);
+                
+                if (yAxis === 'pnl') {
+                    values.push(cumulative);
+                } else {
+                    const tradeMonth = trade.date.substring(0, 7);
+                    if (roiPeriod === 'monthly') {
+                        if (tradeMonth !== currentMonth) {
+                            monthlyStart = cumulative - trade.pnl;
+                            currentMonth = tradeMonth;
+                        }
+                        const monthlyRoi = totalCapital > 0 ? ((cumulative - monthlyStart) / totalCapital * 100) : 0;
+                        values.push(monthlyRoi);
+                    } else {
+                        const totalRoi = totalCapital > 0 ? (cumulative / totalCapital * 100) : 0;
+                        values.push(totalRoi);
+                    }
+                }
+                
+                if (cumulative > peak) peak = cumulative;
+                drawdowns.push(peak - cumulative);
+            });
+            
+            drawChart('pnlChart', labels, values, yAxis === 'pnl' ? 'PnL (₹)' : 'ROI (%)');
+            drawChart('drawdownChart', labels, drawdowns, 'Drawdown (₹)', '#e74c3c');
+        }
+
+        function drawChart(canvasId, labels, data, yLabel, color = '#667eea') {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (data.length === 0) return;
+            
+            const padding = 60;
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - 2 * padding;
+            
+            const isDrawdown = canvasId === 'drawdownChart';
+            const displayData = isDrawdown ? data.map(d => -d) : data;
+            
+            const maxValue = Math.max(...displayData, 0);
+            const minValue = Math.min(...displayData, 0);
+            const range = maxValue - minValue || 1;
+            
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                const value = maxValue - (range / 5) * i;
+                
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+                
+                ctx.fillText(value.toFixed(0), 10, y + 5);
+            }
+            
+            const points = [];
+            
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            displayData.forEach((value, i) => {
+                const x = padding + (chartWidth / (displayData.length - 1 || 1)) * i;
+                const y = canvas.height - padding - ((value - minValue) / range) * chartHeight;
+                
+                points.push({ x, y, value: data[i], label: labels[i] });
+                
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            ctx.stroke();
+            
+            ctx.fillStyle = color;
+            displayData.forEach((value, i) => {
+                const x = padding + (chartWidth / (displayData.length - 1 || 1)) * i;
+                const y = canvas.height - padding - ((value - minValue) / range) * chartHeight;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            ctx.save();
+            ctx.translate(20, canvas.height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 14px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(yLabel, 0, 0);
+            ctx.restore();
+            
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                let found = false;
+                const tooltip = document.getElementById('chartTooltip');
+                
+                for (let point of points) {
+                    const distance = Math.sqrt(Math.pow(mouseX - point.x, 2) + Math.pow(mouseY - point.y, 2));
+                    if (distance < 10) {
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = (e.clientX + 10) + 'px';
+                        tooltip.style.top = (e.clientY - 30) + 'px';
+                        tooltip.innerHTML = `Date: ${point.label}<br>Value: ₹${point.value.toLocaleString()}`;
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    tooltip.style.display = 'none';
+                }
+            };
+            
+            canvas.onmouseleave = () => {
+                document.getElementById('chartTooltip').style.display = 'none';
+            };
+        }
+
+        // Comparison Feature
+        function loadComparisonCheckboxes() {
+            const container = document.getElementById('comparisonCheckboxes');
+            container.innerHTML = '';
+            
+            clients.forEach((client, index) => {
+                const color = comparisonColors[index % comparisonColors.length];
+                container.innerHTML += `
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="compare-${client.id}" value="${client.id}" onchange="updateComparison()">
+                        <label for="compare-${client.id}">
+                            <div class="color-indicator" style="background: ${color};"></div>
+                            ${client.name}
+                        </label>
+                    </div>
+                `;
+            });
+        }
+
+        function updateComparison() {
+            const selectedMonth = document.getElementById('comparisonMonth').value;
+            const startDate = document.getElementById('comparisonStartDate').value;
+            const endDate = document.getElementById('comparisonEndDate').value;
+            
+            // Get selected clients
+            const selectedClients = [];
+            clients.forEach(client => {
+                const checkbox = document.getElementById(`compare-${client.id}`);
+                if (checkbox && checkbox.checked) {
+                    selectedClients.push(client);
+                }
+            });
+            
+            if (selectedClients.length === 0) {
+                const canvas = document.getElementById('comparisonChart');
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#666';
+                ctx.font = '16px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Select clients/strategies to compare', canvas.width / 2, canvas.height / 2);
+                document.getElementById('comparisonLegend').innerHTML = '';
+                return;
+            }
+            
+            // Prepare data for each client
+            const clientData = {};
+            const allDates = new Set();
+            
+            selectedClients.forEach(client => {
+                let clientTrades = trades.filter(t => t.clientId === client.id);
+                
+                // Apply filters
+                if (selectedMonth !== 'all') {
+                    clientTrades = clientTrades.filter(t => t.date.startsWith(selectedMonth));
+                }
+                
+                if (startDate && endDate) {
+                    clientTrades = clientTrades.filter(t => t.date >= startDate && t.date <= endDate);
+                } else if (startDate) {
+                    clientTrades = clientTrades.filter(t => t.date >= startDate);
+                } else if (endDate) {
+                    clientTrades = clientTrades.filter(t => t.date <= endDate);
+                }
+                
+                clientTrades.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                // Calculate cumulative ROI
+                let cumulative = 0;
+                const roiData = {};
+                
+                clientTrades.forEach(trade => {
+                    cumulative += trade.pnl;
+                    const roi = client.capital > 0 ? (cumulative / client.capital * 100) : 0;
+                    roiData[trade.date] = roi;
+                    allDates.add(trade.date);
+                });
+                
+                clientData[client.id] = {
+                    name: client.name,
+                    roiData: roiData,
+                    color: comparisonColors[selectedClients.indexOf(client) % comparisonColors.length]
+                };
+            });
+            
+            // Sort dates
+            const sortedDates = Array.from(allDates).sort();
+            
+            // Draw comparison chart
+            drawComparisonChart(sortedDates, clientData);
+            
+            // Update legend
+            const legend = document.getElementById('comparisonLegend');
+            legend.innerHTML = selectedClients.map((client, index) => {
+                const color = comparisonColors[index % comparisonColors.length];
+                return `
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: ${color}; width: 40px; height: 6px;"></div>
+                        <span>${client.name}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function drawComparisonChart(dates, clientData) {
+            const canvas = document.getElementById('comparisonChart');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (dates.length === 0) return;
+            
+            const padding = 60;
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - 2 * padding;
+            
+            // Calculate min/max for all clients
+            let maxValue = -Infinity;
+            let minValue = Infinity;
+            
+            Object.values(clientData).forEach(client => {
+                Object.values(client.roiData).forEach(roi => {
+                    maxValue = Math.max(maxValue, roi);
+                    minValue = Math.min(minValue, roi);
+                });
+            });
+            
+            maxValue = Math.max(maxValue, 0);
+            minValue = Math.min(minValue, 0);
+            const range = maxValue - minValue || 1;
+            
+            // Draw axes
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw grid
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                const value = maxValue - (range / 5) * i;
+                
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+                
+                ctx.fillText(value.toFixed(1) + '%', 10, y + 5);
+            }
+            
+            // Draw lines for each client
+            const allPoints = {};
+            
+            Object.entries(clientData).forEach(([clientId, client]) => {
+                ctx.strokeStyle = client.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                const points = [];
+                let lastROI = 0;
+                
+                dates.forEach((date, i) => {
+                    const roi = client.roiData[date] !== undefined ? client.roiData[date] : lastROI;
+                    lastROI = roi;
+                    
+                    const x = padding + (chartWidth / (dates.length - 1 || 1)) * i;
+                    const y = canvas.height - padding - ((roi - minValue) / range) * chartHeight;
+                    
+                    points.push({ x, y, roi, date, clientName: client.name });
+                    
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                
+                ctx.stroke();
+                
+                // Draw points
+                ctx.fillStyle = client.color;
+                points.forEach(point => {
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                allPoints[clientId] = points;
+            });
+            
+            // Y-axis label
+            ctx.save();
+            ctx.translate(20, canvas.height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 14px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('ROI (%)', 0, 0);
+            ctx.restore();
+            
+            // Hover functionality
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                let found = false;
+                const tooltip = document.getElementById('comparisonTooltip');
+                
+                // Find the closest date
+                let closestDateIndex = -1;
+                let minDistance = Infinity;
+                
+                dates.forEach((date, i) => {
+                    const x = padding + (chartWidth / (dates.length - 1 || 1)) * i;
+                    const distance = Math.abs(mouseX - x);
+                    if (distance < minDistance && distance < 20) {
+                        minDistance = distance;
+                        closestDateIndex = i;
+                    }
+                });
+                
+                if (closestDateIndex !== -1) {
+                    const date = dates[closestDateIndex];
+                    let tooltipHTML = `<strong>Date: ${date}</strong><br>`;
+                    
+                    Object.values(clientData).forEach(client => {
+                        const points = allPoints[Object.keys(clientData).find(id => clientData[id] === client)];
+                        const point = points[closestDateIndex];
+                        tooltipHTML += `<div style="color: ${client.color}">● ${client.name}: ${point.roi.toFixed(2)}%</div>`;
+                    });
+                    
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = (e.clientX + 10) + 'px';
+                    tooltip.style.top = (e.clientY - 30) + 'px';
+                    tooltip.innerHTML = tooltipHTML;
+                    found = true;
+                }
+                
+                if (!found) {
+                    tooltip.style.display = 'none';
+                }
+            };
+            
+            canvas.onmouseleave = () => {
+                document.getElementById('comparisonTooltip').style.display = 'none';
+            };
+        }
+
+        // PDF Generation
+        async function generatePDF() {
+            const selectedClient = document.getElementById('downloadClient').value;
+            const selectedMonth = document.getElementById('downloadMonth').value;
+            
+            if (typeof window.jspdf === 'undefined') {
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+            }
+            if (typeof html2canvas === 'undefined') {
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+            }
+            
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            let yPos = 20;
+            
+            let filteredTrades = selectedClient === 'all' 
+                ? trades 
+                : trades.filter(t => t.clientId === parseInt(selectedClient));
+            
+            if (selectedMonth !== 'all') {
+                filteredTrades = filteredTrades.filter(t => t.date.startsWith(selectedMonth));
+            }
+            
+            const filteredClients = selectedClient === 'all'
+                ? clients
+                : clients.filter(c => c.id === parseInt(selectedClient));
+            
+            const totalCapital = filteredClients.reduce((sum, c) => sum + c.capital, 0);
+            const clientName = selectedClient === 'all' ? 'All Clients/Strategies' : filteredClients[0]?.name || 'Client/Strategy';
+            const periodText = selectedMonth === 'all' ? 'All Time' : new Date(selectedMonth + '-01').toLocaleDateString('en-US', {month: 'long', year: 'numeric'});
+            
+            const totalDays = filteredTrades.length;
+            const winningDays = filteredTrades.filter(t => t.pnl > 0).length;
+            const losingDays = filteredTrades.filter(t => t.pnl < 0).length;
+            const totalPnL = filteredTrades.reduce((sum, t) => sum + t.pnl, 0);
+            const roi = totalCapital > 0 ? (totalPnL / totalCapital * 100).toFixed(2) : 0;
+            const avgProfit = totalDays > 0 ? (totalPnL / totalDays).toFixed(2) : 0;
+            const winPercentage = totalDays > 0 ? ((winningDays / totalDays) * 100).toFixed(2) : 0;
+            
+            pdf.setFillColor(102, 126, 234);
+            pdf.rect(0, 0, pageWidth, 40, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(24);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Trade Journal Report', pageWidth / 2, 15, { align: 'center' });
+            pdf.setFontSize(12);
+            pdf.setFont(undefined, 'normal');
+            pdf.text(`Client/Strategy: ${clientName}`, pageWidth / 2, 25, { align: 'center' });
+            pdf.text(`Period: ${periodText}`, pageWidth / 2, 32, { align: 'center' });
+            
+            yPos = 50;
+            
+            pdf.setTextColor(51, 51, 51);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Performance Overview', 15, yPos);
+            yPos += 10;
+            
+            const stats = [
+                { label: 'Total Capital', value: `Rs ${totalCapital}`, color: [79, 172, 254] },
+                { label: 'Days Traded', value: totalDays, color: [168, 237, 234] },
+                { label: 'Winning Days', value: winningDays, color: [46, 204, 113] },
+                { label: 'Losing Days', value: losingDays, color: [231, 76, 60] },
+                { label: 'Win %', value: `${winPercentage}%`, color: [52, 152, 219] },
+                { label: 'Total PnL', value: `Rs ${totalPnL}`, color: totalPnL >= 0 ? [46, 204, 113] : [231, 76, 60] },
+                { label: 'Avg Profit/Trade', value: `Rs ${avgProfit}`, color: [155, 89, 182] },
+                { label: 'ROI', value: `${roi}%`, color: roi >= 0 ? [46, 204, 113] : [231, 76, 60] }
+            ];
+            
+            let xOffset = 15;
+            let rowCount = 0;
+            pdf.setFontSize(10);
+            
+            stats.forEach((stat, index) => {
+                if (rowCount === 4) {
+                    yPos += 25;
+                    xOffset = 15;
+                    rowCount = 0;
+                }
+                
+                pdf.setFillColor(stat.color[0], stat.color[1], stat.color[2]);
+                pdf.roundedRect(xOffset, yPos, 43, 20, 3, 3, 'F');
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFont(undefined, 'normal');
+                pdf.text(stat.label, xOffset + 21.5, yPos + 7, { align: 'center' });
+                pdf.setFont(undefined, 'bold');
+                pdf.setFontSize(12);
+                pdf.text(String(stat.value), xOffset + 21.5, yPos + 15, { align: 'center' });
+                pdf.setFontSize(10);
+                
+                xOffset += 47;
+                rowCount++;
+            });
+            
+            yPos += 30;
+            
+            if (yPos > 230) {
+                pdf.addPage();
+                yPos = 20;
+            }
+            
+            pdf.setTextColor(51, 51, 51);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Day-wise PnL Breakdown', 15, yPos);
+            yPos += 8;
+            
+            pdf.setFillColor(102, 126, 234);
+            pdf.rect(15, yPos, pageWidth - 30, 10, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(9);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Date', 20, yPos + 7);
+            pdf.text('PnL (Rs)', 80, yPos + 7);
+            pdf.text('ROI %', 120, yPos + 7);
+            pdf.text('Cumulative PnL (Rs)', 150, yPos + 7);
+            yPos += 10;
+            
+            const sortedTrades = filteredTrades.sort((a, b) => new Date(a.date) - new Date(b.date));
+            let cumulativePnL = 0;
+            let rowColor = true;
+            
+            pdf.setFont(undefined, 'normal');
+            sortedTrades.forEach((trade, index) => {
+                if (yPos > 270) {
+                    pdf.addPage();
+                    yPos = 20;
+                    
+                    pdf.setFillColor(102, 126, 234);
+                    pdf.rect(15, yPos, pageWidth - 30, 10, 'F');
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Date', 20, yPos + 7);
+                    pdf.text('PnL (Rs)', 80, yPos + 7);
+                    pdf.text('ROI %', 120, yPos + 7);
+                    pdf.text('Cumulative PnL (Rs)', 150, yPos + 7);
+                    yPos += 10;
+                    pdf.setFont(undefined, 'normal');
+                }
+                
+                cumulativePnL += trade.pnl;
+                const dayROI = totalCapital > 0 ? ((trade.pnl / totalCapital) * 100).toFixed(2) : 0;
+                
+                if (rowColor) {
+                    pdf.setFillColor(248, 249, 252);
+                    pdf.rect(15, yPos, pageWidth - 30, 8, 'F');
+                }
+                rowColor = !rowColor;
+                
+                pdf.setTextColor(51, 51, 51);
+                pdf.text(new Date(trade.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}), 20, yPos + 6);
+                
+                pdf.setTextColor(trade.pnl >= 0 ? 46 : 231, trade.pnl >= 0 ? 204 : 76, trade.pnl >= 0 ? 113 : 60);
+                pdf.text(`Rs ${trade.pnl}`, 80, yPos + 6);
+                pdf.text(`${dayROI}%`, 120, yPos + 6);
+                pdf.text(`Rs ${cumulativePnL}`, 150, yPos + 6);
+                
+                yPos += 8;
+            });
+            
+            yPos += 2;
+            pdf.setFillColor(102, 126, 234);
+            pdf.rect(15, yPos, pageWidth - 30, 10, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('TOTAL', 20, yPos + 7);
+            pdf.text(`Rs ${totalPnL}`, 80, yPos + 7);
+            pdf.text(`${roi}%`, 120, yPos + 7);
+            
+            pdf.addPage();
+            yPos = 20;
+            
+            pdf.setTextColor(51, 51, 51);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('PnL Analysis Chart', 15, yPos);
+            yPos += 10;
+            
+            const pnlCanvas = document.createElement('canvas');
+            pnlCanvas.width = 800;
+            pnlCanvas.height = 300;
+            const pnlCtx = pnlCanvas.getContext('2d');
+            
+            drawChartOnCanvas(pnlCtx, sortedTrades, totalCapital, 'pnl');
+            
+            const pnlImgData = pnlCanvas.toDataURL('image/png');
+            pdf.addImage(pnlImgData, 'PNG', 15, yPos, pageWidth - 30, 80);
+            yPos += 90;
+            
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Drawdown Analysis Chart', 15, yPos);
+            yPos += 10;
+            
+            const ddCanvas = document.createElement('canvas');
+            ddCanvas.width = 800;
+            ddCanvas.height = 300;
+            const ddCtx = ddCanvas.getContext('2d');
+            
+            drawChartOnCanvas(ddCtx, sortedTrades, totalCapital, 'drawdown');
+            
+            const ddImgData = ddCanvas.toDataURL('image/png');
+            pdf.addImage(ddImgData, 'PNG', 15, yPos, pageWidth - 30, 80);
+            
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(8);
+                pdf.setTextColor(150, 150, 150);
+                pdf.text(`Generated on ${new Date().toLocaleDateString('en-US')} | Page ${i} of ${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+            }
+            
+            const fileName = `Trade_Report_${clientName.replace(/\s+/g, '_')}_${periodText.replace(/\s+/g, '_')}.pdf`;
+            pdf.save(fileName);
+        }
+
+        function drawChartOnCanvas(ctx, trades, capital, type) {
+            const canvas = ctx.canvas;
+            const padding = 60;
+            const chartWidth = canvas.width - 2 * padding;
+            const chartHeight = canvas.height - 2 * padding;
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            if (trades.length === 0) return;
+            
+            const data = [];
+            let cumulative = 0;
+            let peak = 0;
+            
+            trades.forEach(trade => {
+                cumulative += trade.pnl;
+                if (type === 'drawdown') {
+                    if (cumulative > peak) peak = cumulative;
+                    data.push(-(peak - cumulative));
+                } else {
+                    data.push(cumulative);
+                }
+            });
+            
+            const maxValue = Math.max(...data, 0);
+            const minValue = Math.min(...data, 0);
+            const range = maxValue - minValue || 1;
+            
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#666';
+            ctx.font = '14px sans-serif';
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                const value = maxValue - (range / 5) * i;
+                
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+                
+                ctx.fillText(value.toFixed(0), 10, y + 5);
+            }
+            
+            ctx.strokeStyle = type === 'drawdown' ? '#e74c3c' : '#667eea';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            
+            data.forEach((value, i) => {
+                const x = padding + (chartWidth / (data.length - 1 || 1)) * i;
+                const y = canvas.height - padding - ((value - minValue) / range) * chartHeight;
+                
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            ctx.stroke();
+            
+            ctx.fillStyle = type === 'drawdown' ? '#e74c3c' : '#667eea';
+            data.forEach((value, i) => {
+                const x = padding + (chartWidth / (data.length - 1 || 1)) * i;
+                const y = canvas.height - padding - ((value - minValue) / range) * chartHeight;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            ctx.save();
+            ctx.translate(25, canvas.height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 16px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(type === 'drawdown' ? 'Drawdown (Rs)' : 'PnL (Rs)', 0, 0);
+            ctx.restore();
+        }
+
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // Initialize
+        if (currentUser) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboardPage').style.display = 'block';
+            loadData();
+            updateUserDisplay();
+        }
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeBtn').textContent = '☀️ Light';
+        }
+    </script>
+
+</body></html>
